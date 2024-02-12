@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://cu6hx6lsbb0tm"]
+
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_8r85i"]
+[ext_resource type="Texture2D" uid="uid://cn3i50q50yx1j" path="res://icon.svg" id="2_i8d50"]
+[ext_resource type="Script" path="res://Scenes/Idle.gd" id="3_cnb0j"]
+[ext_resource type="Script" path="res://Scenes/StateMachine.gd" id="3_u13ix"]
+[ext_resource type="Script" path="res://Scenes/Air.gd" id="4_kettg"]
+[ext_resource type="Script" path="res://Scenes/Run.gd" id="5_fi2ly"]
+[ext_resource type="Script" path="res://Scenes/Ground_pound.gd" id="7_5mcih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpywl"]
+size = Vector2(121, 117)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_8r85i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_gpywl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_i8d50")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_u13ix")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_cnb0j")
+
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("4_kettg")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("5_fi2ly")
+
+[node name="Ground_pound" type="Node" parent="StateMachine"]
+script = ExtResource("7_5mcih")

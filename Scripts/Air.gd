@@ -34,9 +34,14 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and owner.double_jump == 0 and not owner.is_on_wall():
 		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.double_jump = 1
-	 
-	print(owner.is_on_wall())
-	if owner.is_on_wall() and Input.is_action_just_pressed("jump"):
+	var on_wall_L = owner.left.is_colliding() 
+	var on_wall_R = owner.right.is_colliding()
+	
+	if Input.is_action_just_pressed("jump") and on_wall_L:
 		owner.velocity.y = owner.JUMP_VELOCITY
-		owner.velocity.x = 0
+		owner.velocity.x = owner.wall_jump_pushback
+	
+	if Input.is_action_just_pressed("jump") and on_wall_R:
+		owner.velocity.y = owner.JUMP_VELOCITY
+		owner.velocity.x = -owner.wall_jump_pushback
 	

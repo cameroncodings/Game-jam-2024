@@ -5,7 +5,7 @@ func enter(_msg := {}) -> void:
 	owner.gravity = 1500
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
-
+	owner.cancely = 0
 
 func update(delta: float) -> void:
 	# If you have platforms that break when standing on them, you need that check for 

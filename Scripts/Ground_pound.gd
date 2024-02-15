@@ -1,11 +1,12 @@
 extends State
 
-
 func enter(msg := {}) -> void:
 	owner.gravity = 10000
+	
 
 
 func physics_update(delta: float) -> void:
+	
 	# Horizontal movement.
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
@@ -25,6 +26,9 @@ func physics_update(delta: float) -> void:
 		else:
 			%state_machine.transition_to("Run")
 		
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and owner.cancely == 0:
 		owner.velocity.y = owner.JUMP_VELOCITY
+		owner.cancely = 1
 		%state_machine.transition_to("Air")
+		
+		

@@ -17,17 +17,22 @@ func update(_delta: float) -> void:
 
 
 # Virtual function. Corresponds to the `_physics_process()` callback.
-func physics_update(_delta: float) -> void:
-	pass
+func physics_update(delta: float) -> void:
+	owner.velocity.y += owner.gravity * delta
 
 
 # Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.
 func enter(_msg := {}) -> void:
-	pass
+	$Timer.start(0.05)
+	
 
 
 # Virtual function. Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
 	pass
+
+
+func _on_timer_timeout():
+	%state_machine.transition_to("Air")

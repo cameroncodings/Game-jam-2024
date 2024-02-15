@@ -2,6 +2,7 @@ extends State
 
 func enter(_msg := {}) -> void:
 	owner.gravity = 1500
+	owner.cancely = 0
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
@@ -34,3 +35,5 @@ func physics_update(delta: float) -> void:
 		owner.velocity.y = owner.JUMP_VELOCITY
 	if Input.is_action_just_released("jump") and owner.velocity.y < 0:
 		owner.velocity.y = owner.mini_jump
+
+	

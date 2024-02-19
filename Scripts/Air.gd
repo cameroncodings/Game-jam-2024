@@ -1,26 +1,47 @@
 extends State
-
+var time = 0
 
 func enter(msg := {}) -> void:
-	owner.gravity = 1500
+	owner.cantm = false
+	owner.gravity = 2000
 	if msg.has("do_jump"):
 		owner.velocity.y = -owner.JUMP_VELOCITY
 		owner.double_jump = 0
 
 
 func physics_update(delta: float) -> void:
-	# Horizontal movement.
+	print(owner.velocity.x)
 	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
+	if direction and owner.cantm == false and owner.walljump == false:
 		owner.velocity.x = direction * owner.SPEED
+	elif owner.walljump == true:
+		owner.velocity.x -= move_toward(owner.velocity.x, 0, owner.SPEED)
 	else:
 		owner.velocity.x = move_toward(owner.velocity.x, 0, owner.SPEED)
+	
+	var on_wall_L = owner.left.is_colliding() 
+	var on_wall_R = owner.right.is_colliding()
 
-	owner.move_and_slide()
-	# Vertical movement.
+	if Input.is_action_just_pressed("jump") and on_wall_L:
+		owner.walljump = true
+		owner.cantm = true
+		owner.velocity.y = owner.JUMP_VELOCITY
+		owner.velocity.x = owner.wall_jump_pushback
+		$Timer.start()
+		$walljump.start(0.3)
+		
+		
+	if Input.is_action_just_pressed("jump") and on_wall_R:
+		owner.walljump = true
+		owner.cantm = true
+		owner.velocity.y = owner.JUMP_VELOCITY 
+		owner.velocity.x = -owner.wall_jump_pushback
+		$Timer.start()
+		$walljump.start(0.3)
+	
 	owner.velocity.y += owner.gravity * delta
 	owner.move_and_slide()
-
+	
 	# Landing.
 	if owner.is_on_floor():
 		if is_equal_approx(owner.velocity.x, 0.0):
@@ -31,17 +52,24 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("ground_pound") and not owner.is_on_floor():
 		%state_machine.transition_to("Ground_pound")
 	
+	if Input.is_action_just_pressed("dash") and owner.can_dash:
+		%state_machine.transition_to("Dash")
+
 	if Input.is_action_just_pressed("jump") and owner.double_jump == 0 and not owner.is_on_wall():
 		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.double_jump = 1
-	var on_wall_L = owner.left.is_colliding() 
-	var on_wall_R = owner.right.is_colliding()
+
 	
-	if Input.is_action_just_pressed("jump") and on_wall_L:
-		owner.velocity.y = owner.JUMP_VELOCITY
-		owner.velocity.x = owner.wall_jump_pushback
 	
-	if Input.is_action_just_pressed("jump") and on_wall_R:
-		owner.velocity.y = owner.JUMP_VELOCITY
-		owner.velocity.x = -owner.wall_jump_pushback
-	
+
+
+func _on_timer_timeout():
+		$Timer.stop()
+		print("timeout")
+		owner.double_jump = 0
+		owner.cantm = false
+
+
+func _on_walljump_timeout():
+	$walljump.stop()
+	owner.walljump = false

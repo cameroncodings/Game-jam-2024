@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu6hx6lsbb0tm"]
+[gd_scene load_steps=9 format=3 uid="uid://cu6hx6lsbb0tm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_8r85i"]
 [ext_resource type="Texture2D" uid="uid://cn3i50q50yx1j" path="res://Assets/icon.svg" id="2_i8d50"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://Scripts/Air.gd" id="4_kettg"]
 [ext_resource type="Script" path="res://Scripts/Run.gd" id="5_fi2ly"]
 [ext_resource type="Script" path="res://Scripts/Ground_pound.gd" id="7_5mcih"]
-[ext_resource type="Script" path="res://Scripts/Dash.gd" id="8_3jj72"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpywl"]
 size = Vector2(121, 122)
@@ -37,29 +36,14 @@ script = ExtResource("3_cnb0j")
 [node name="Air" type="Node" parent="state_machine"]
 script = ExtResource("4_kettg")
 
-[node name="Timer" type="Timer" parent="state_machine/Air"]
-wait_time = 0.1
-
-[node name="walljump" type="Timer" parent="state_machine/Air"]
-wait_time = 0.2
-
 [node name="Run" type="Node" parent="state_machine"]
 script = ExtResource("5_fi2ly")
 
 [node name="Ground_pound" type="Node" parent="state_machine"]
 script = ExtResource("7_5mcih")
 
-[node name="Dash" type="Node" parent="state_machine"]
-script = ExtResource("8_3jj72")
-
-[node name="dashtime" type="Timer" parent="state_machine/Dash"]
-
 [node name="right" type="RayCast2D" parent="."]
 target_position = Vector2(67, 0)
 
 [node name="left" type="RayCast2D" parent="."]
 target_position = Vector2(-67, 0)
-
-[connection signal="timeout" from="state_machine/Air/Timer" to="state_machine/Air" method="_on_timer_timeout"]
-[connection signal="timeout" from="state_machine/Air/walljump" to="state_machine/Air" method="_on_walljump_timeout"]
-[connection signal="timeout" from="state_machine/Dash/dashtime" to="state_machine/Dash" method="_on_dashtime_timeout"]

@@ -6,6 +6,8 @@ func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
 	owner.cancely = 0
+	owner.walljump = false
+	owner.can_dash = true
 
 func update(delta: float) -> void:
 	# If you have platforms that break when standing on them, you need that check for 
@@ -13,6 +15,8 @@ func update(delta: float) -> void:
 	if not owner.is_on_floor():
 		%state_machine.transition_to("Air")
 		return
+	if Input.is_action_just_pressed("dash") and owner.can_dash:
+		%state_machine.transition_to("Dash")
 
 	if Input.is_action_just_pressed("jump"):
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 

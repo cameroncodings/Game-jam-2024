@@ -1,7 +1,7 @@
 extends State
 
 func enter(msg := {}) -> void:
-	owner.gravity = 10000
+	owner.gravity = 250
 	
 
 
@@ -16,7 +16,7 @@ func physics_update(delta: float) -> void:
 
 	owner.move_and_slide()
 	# Vertical movement.
-	owner.velocity.y += owner.gravity * delta
+	owner.velocity.y += owner.gravity
 	owner.move_and_slide()
 
 	# Landing.

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var sprite = $Sprite2D
+@onready var animation = $AnimationPlayer
 @onready var left := $left
 @onready var right := $right
 const SPEED = 700.0

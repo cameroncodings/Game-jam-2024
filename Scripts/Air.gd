@@ -7,11 +7,16 @@ func enter(msg := {}) -> void:
 	if msg.has("do_jump"):
 		owner.velocity.y = -owner.JUMP_VELOCITY
 		owner.double_jump = 0
+	else:
+		owner.animation.play("Air")
 
 
 func physics_update(delta: float) -> void:
-	print(owner.velocity.x)
 	var direction = Input.get_axis("move_left", "move_right")
+	if direction == -1:
+		owner.sprite.scale.x = -3
+	if direction == 1:
+		owner.sprite.scale.x = 3
 	if direction and owner.cantm == false and owner.walljump == false:
 		owner.velocity.x = direction * owner.SPEED
 	elif owner.walljump == true:
@@ -27,6 +32,9 @@ func physics_update(delta: float) -> void:
 		owner.cantm = true
 		owner.velocity.y = owner.JUMP_VELOCITY
 		owner.velocity.x = owner.wall_jump_pushback
+		direction = 1
+		owner.sprite.scale.x = 3
+		owner.animation.play("Double_jump")
 		$Timer.start()
 		$walljump.start(0.3)
 		
@@ -36,6 +44,9 @@ func physics_update(delta: float) -> void:
 		owner.cantm = true
 		owner.velocity.y = owner.JUMP_VELOCITY 
 		owner.velocity.x = -owner.wall_jump_pushback
+		direction = -1
+		owner.sprite.scale.x = -3
+		owner.animation.play("Double_jump")
 		$Timer.start()
 		$walljump.start(0.3)
 	
@@ -56,6 +67,7 @@ func physics_update(delta: float) -> void:
 		%state_machine.transition_to("Dash")
 
 	if Input.is_action_just_pressed("jump") and owner.double_jump == 0 and not owner.is_on_wall():
+		owner.animation.play("Double_jump")
 		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.double_jump = 1
 
@@ -65,7 +77,6 @@ func physics_update(delta: float) -> void:
 
 func _on_timer_timeout():
 		$Timer.stop()
-		print("timeout")
 		owner.double_jump = 0
 		owner.cantm = false
 

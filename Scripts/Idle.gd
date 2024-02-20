@@ -8,6 +8,7 @@ func enter(_msg := {}) -> void:
 	owner.cancely = 0
 	owner.walljump = false
 	owner.can_dash = true
+	owner.animation.play("Idle")
 
 func update(delta: float) -> void:
 	# If you have platforms that break when standing on them, you need that check for 
@@ -19,6 +20,7 @@ func update(delta: float) -> void:
 		%state_machine.transition_to("Dash")
 
 	if Input.is_action_just_pressed("jump"):
+		owner.animation.play("Jump")
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 
 		# to tell the next state that we want to jump.
 		%state_machine.transition_to("Air", {do_jump = true})

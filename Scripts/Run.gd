@@ -6,6 +6,7 @@ func enter(_msg := {}) -> void:
 	owner.cancely = 0
 	owner.walljump = false
 	owner.can_dash = true
+	owner.animation.play("Run")
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
@@ -19,6 +20,10 @@ func physics_update(delta: float) -> void:
 	# A good alternative would be to define a `get_input_direction()` function on the `Player.gd`
 	# script to avoid duplicating these lines in every script.
 	var direction = Input.get_axis("move_left", "move_right")
+	if direction == -1:
+		owner.sprite.scale.x = -3
+	if direction == 1:
+		owner.sprite.scale.x = 3
 	if direction and owner.cantm == true:
 		owner.velocity.x = direction * owner.SPEED
 	else:
@@ -28,6 +33,7 @@ func physics_update(delta: float) -> void:
 	owner.move_and_slide()
 
 	if Input.is_action_just_pressed("jump"):
+		owner.animation.play("Jump")
 		%state_machine.transition_to("Air", {do_jump = true})
 	elif is_equal_approx(direction, 0.0):
 		%state_machine.transition_to("Idle")

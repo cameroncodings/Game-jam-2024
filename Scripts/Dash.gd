@@ -29,6 +29,7 @@ func enter(_msg := {}) -> void:
 	var directiony = Input.get_axis("move_up", "move_down")
 	owner.velocity.x = directionx * owner.DASH_SPEEDx
 	owner.velocity.y = directiony * owner.DASH_SPEEDy
+	owner.animation.play("Dash")
 
 
 

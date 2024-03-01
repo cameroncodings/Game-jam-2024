@@ -45,3 +45,6 @@ func physics_update(delta: float) -> void:
 		owner.velocity.y = owner.JUMP_VELOCITY
 	if Input.is_action_just_released("jump") and owner.velocity.y < 0:
 		owner.velocity.y = owner.mini_jump
+		
+	if Input.is_action_just_pressed("attack"): 
+		%state_machine.transition_to("attack")

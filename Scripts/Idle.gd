@@ -31,4 +31,7 @@ func update(delta: float) -> void:
 		owner.velocity.y = owner.mini_jump
 	if Input.is_action_just_pressed("jump") and owner.is_on_floor():
 		owner.velocity.y = owner.JUMP_VELOCITY
+	
+	if Input.is_action_just_pressed("attack"): 
+		%state_machine.transition_to("attack")
 

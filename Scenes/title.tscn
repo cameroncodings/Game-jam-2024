@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4j3l2ye0awtf"]
 
-[ext_resource type="Script" path="res://Scenes/title.gd" id="1_80652"]
+[ext_resource type="Script" path="res://Scripts/title.gd" id="1_80652"]
 [ext_resource type="Texture2D" uid="uid://bxmmiptml1hc" path="res://Assets/istart.png" id="2_r117p"]
 [ext_resource type="Texture2D" uid="uid://bunamgocgtplv" path="res://Assets/pstart.png" id="3_8xm0m"]
 [ext_resource type="Texture2D" uid="uid://dc5r7qou7onj0" path="res://Assets/hstart.png" id="4_ok4g7"]
@@ -64,5 +64,5 @@ texture_normal = ExtResource("8_bof26")
 texture_pressed = ExtResource("9_iws1i")
 texture_hover = ExtResource("10_wv6fm")
 
-[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]

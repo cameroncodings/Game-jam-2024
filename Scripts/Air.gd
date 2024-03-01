@@ -3,7 +3,7 @@ var time = 0
 
 func enter(msg := {}) -> void:
 	owner.cantm = false
-	owner.gravity = 2000
+	owner.gravity = 1500
 	if msg.has("do_jump"):
 		owner.velocity.y = -owner.JUMP_VELOCITY
 		owner.double_jump = 0
@@ -36,7 +36,7 @@ func physics_update(delta: float) -> void:
 		owner.sprite.scale.x = 3
 		owner.animation.play("Double_jump")
 		$Timer.start()
-		$walljump.start(0.3)
+		$walljump.start(0.4)
 		
 		
 	if Input.is_action_just_pressed("jump") and on_wall_R:
@@ -48,7 +48,7 @@ func physics_update(delta: float) -> void:
 		owner.sprite.scale.x = -3
 		owner.animation.play("Double_jump")
 		$Timer.start()
-		$walljump.start(0.3)
+		$walljump.start(0.4)
 	
 	owner.velocity.y += owner.gravity * delta
 	owner.move_and_slide()
@@ -66,18 +66,17 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and owner.can_dash:
 		%state_machine.transition_to("Dash")
 
-	if Input.is_action_just_pressed("jump") and owner.double_jump == 0 and not owner.is_on_wall():
+	if Input.is_action_just_pressed("jump") and owner.double_jump == 0 and on_wall_R == false and on_wall_L == false:  
 		owner.animation.play("Double_jump")
 		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.double_jump = 1
-
 	
-	
+	if Input.is_action_just_pressed("attack"): 
+		%state_machine.transition_to("attack")
 
 
 func _on_timer_timeout():
 		$Timer.stop()
-		owner.double_jump = 0
 		owner.cantm = false
 
 

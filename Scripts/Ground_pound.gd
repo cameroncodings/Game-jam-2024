@@ -1,7 +1,7 @@
 extends State
 
 func enter(msg := {}) -> void:
-	owner.gravity = 250
+	owner.gravity = 100
 	owner.animation.play("Ground_pound")
 
 

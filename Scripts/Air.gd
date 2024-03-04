@@ -6,9 +6,9 @@ func enter(msg := {}) -> void:
 	owner.gravity = 1500
 	if msg.has("do_jump"):
 		owner.velocity.y = -owner.JUMP_VELOCITY
-		owner.double_jump = 0
-	else:
+	else: 
 		owner.animation.play("Air")
+	owner.double_jump = 0
 
 
 func physics_update(delta: float) -> void:
@@ -83,3 +83,5 @@ func _on_timer_timeout():
 func _on_walljump_timeout():
 	$walljump.stop()
 	owner.walljump = false
+
+

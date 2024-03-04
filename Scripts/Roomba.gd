@@ -28,7 +28,7 @@ func _physics_process(delta):
 
 func _on_hitox_body_entered(body):
 	if body.name == "Player":
-		get_tree().reload_current_scene()
+		body.hurt()
 
 
 func _on_hitox_area_entered(area):

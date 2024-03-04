@@ -11,8 +11,9 @@ func enter(_msg := {}) -> void:
 	owner.velocity.x = 0
 	owner.gravity = 1500
 	$"../../knife/knifebox".position.x = 40*(owner.sprite.scale.x)
-	$"../../knife/knifebox".disabled = false   
-	$attacktime.start(0.3)
+	$"../../knife/knifebox".disabled = false
+	owner.animation.play("Knife")  
+	$attacktime.start(0.4)
 
 
 # Virtual function. Called by the state machine before changing the active state. Use this function

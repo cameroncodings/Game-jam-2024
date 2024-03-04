@@ -27,7 +27,7 @@ func enter(_msg := {}) -> void:
 	$dashtime.start(0.1)
 	var directionx = Input.get_axis("move_left", "move_right")
 	var directiony = Input.get_axis("move_up", "move_down")
-	if directionx == 0:
+	if directionx == 0 and directiony == 0:
 		directionx = owner.sprite.scale.x/3
 	owner.velocity.x = directionx * owner.DASH_SPEEDx
 	owner.velocity.y = directiony * owner.DASH_SPEEDy

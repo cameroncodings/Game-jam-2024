@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://cu6hx6lsbb0tm"]
+[gd_scene load_steps=21 format=3 uid="uid://cu6hx6lsbb0tm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_8r85i"]
-[ext_resource type="Texture2D" uid="uid://db70ygncc71hh" path="res://Assets/placeholderplayer.png" id="2_u4u4y"]
+[ext_resource type="Texture2D" uid="uid://cpm28gi1tsfq3" path="res://Assets/mainchar.png" id="2_qtcc5"]
 [ext_resource type="Script" path="res://Scripts/Idle.gd" id="3_cnb0j"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_u13ix"]
 [ext_resource type="Script" path="res://Scripts/Air.gd" id="4_kettg"]
@@ -60,6 +60,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_yih1t"]
 resource_name = "Ground_pound"
+length = 0.25
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -70,7 +72,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [41, 42]
+"values": [40, 41]
 }
 
 [sub_resource type="Animation" id="Animation_0dp0b"]
@@ -92,7 +94,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sntpp"]
 resource_name = "Jump"
-length = 0.2
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -100,10 +102,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [3, 4]
+"values": [3, 4, 5, 6, 7, 8]
 }
 
 [sub_resource type="Animation" id="Animation_ne458"]
@@ -120,7 +122,24 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+"values": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_2w401"]
+resource_name = "Knife"
+length = 0.4
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.125, 0.2, 0.275, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [42, 43, 44, 45, 46, 47]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b0tgv"]
@@ -131,6 +150,7 @@ _data = {
 "Ground_pound": SubResource("Animation_yih1t"),
 "Idle": SubResource("Animation_0dp0b"),
 "Jump": SubResource("Animation_sntpp"),
+"Knife": SubResource("Animation_2w401"),
 "Run": SubResource("Animation_ne458")
 }
 
@@ -152,9 +172,10 @@ libraries = {
 texture_filter = 1
 position = Vector2(0, 2.49988)
 scale = Vector2(3, 3.07813)
-texture = ExtResource("2_u4u4y")
+texture = ExtResource("2_qtcc5")
 hframes = 7
-vframes = 7
+vframes = 8
+frame = 42
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6.99998)
@@ -211,7 +232,10 @@ position = Vector2(121, 1)
 shape = SubResource("RectangleShape2D_jjd7r")
 disabled = true
 
+[node name="Knockback" type="Timer" parent="."]
+
 [connection signal="timeout" from="state_machine/Air/Timer" to="state_machine/Air" method="_on_timer_timeout"]
 [connection signal="timeout" from="state_machine/Air/walljump" to="state_machine/Air" method="_on_walljump_timeout"]
 [connection signal="timeout" from="state_machine/Dash/dashtime" to="state_machine/Dash" method="_on_dashtime_timeout"]
 [connection signal="timeout" from="state_machine/attack/attacktime" to="state_machine/attack" method="_on_attacktime_timeout"]
+[connection signal="timeout" from="Knockback" to="." method="_on_knockback_timeout"]

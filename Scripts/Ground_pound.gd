@@ -27,7 +27,7 @@ func physics_update(delta: float) -> void:
 			%state_machine.transition_to("Run")
 		
 	if Input.is_action_just_pressed("jump") and owner.cancely == 0:
-		owner.velocity.y = owner.JUMP_VELOCITY
+		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.cancely = 1
 		%state_machine.transition_to("Air")
 		

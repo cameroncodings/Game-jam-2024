@@ -13,7 +13,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	var wall = wallR.is_colliding() or wallL.is_colliding() 
 	var L = not left.is_colliding() 
 	var R = not right.is_colliding()
@@ -32,5 +32,5 @@ func _on_hitox_body_entered(body):
 
 
 func _on_hitox_area_entered(area):
-	if area.name == "knife":
+	if area.name == "knife" or area.name == "groundpound":
 		queue_free()

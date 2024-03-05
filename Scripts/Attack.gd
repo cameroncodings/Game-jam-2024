@@ -4,7 +4,6 @@ extends State
 
 func physics_update(delta: float) -> void:
 	owner.velocity.y += owner.gravity * delta
-	owner.move_and_slide()
 # Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.
 func enter(_msg := {}) -> void:
@@ -12,7 +11,10 @@ func enter(_msg := {}) -> void:
 	owner.gravity = 1500
 	$"../../knife/knifebox".position.x = 40*(owner.sprite.scale.x)
 	$"../../knife/knifebox".disabled = false
-	owner.animation.play("Knife")  
+	$"../../Slash".scale.x = owner.sprite.scale.x
+	$"../../Slash".position.x = 40*(owner.sprite.scale.x)
+	owner.animation.play("Knife")
+	owner.animationk.play("slasj")  
 	$attacktime.start(0.4)
 
 
@@ -23,6 +25,7 @@ func exit() -> void:
 
 
 func _on_attacktime_timeout():
+	owner.animationk.play("empty")  
 	$"../../knife/knifebox".disabled = true   
 	if not owner.is_on_floor():
 		%state_machine.transition_to("Air")

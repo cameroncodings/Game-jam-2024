@@ -6,11 +6,13 @@ func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	owner.velocity = Vector2.ZERO
 	owner.cancely = 0
+	owner.double_jump = 0
 	owner.walljump = false
 	owner.can_dash = true
 	owner.animation.play("Idle")
+	owner.animationk.play("empty")  
 
-func update(delta: float) -> void:
+func update(_delta: float) -> void:
 	# If you have platforms that break when standing on them, you need that check for 
 	# the character to fall.
 	if not owner.is_on_floor():

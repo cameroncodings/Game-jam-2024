@@ -17,29 +17,17 @@ func update(_delta: float) -> void:
 
 
 # Virtual function. Corresponds to the `_physics_process()` callback.
+func physics_update(_delta: float) -> void:
+	pass
 
 
 # Virtual function. Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.
 func enter(_msg := {}) -> void:
-	$dashtime.start(0.1)
-	var directionx = Input.get_axis("move_left", "move_right")
-	var directiony = Input.get_axis("move_up", "move_down")
-	if directionx == 0 and directiony == 0:
-		directionx = owner.sprite.scale.x/3
-	owner.velocity.x = directionx * owner.DASH_SPEEDx
-	owner.velocity.y = directiony * owner.DASH_SPEEDy
-	owner.animation.play("Dash")
-
+	pass
 
 
 # Virtual function. Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
 	pass
-
-
-func _on_dashtime_timeout():
-	$dashtime.stop()
-	owner.can_dash = false
-	%state_machine.transition_to("Air")

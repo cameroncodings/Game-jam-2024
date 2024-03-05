@@ -8,7 +8,7 @@ func enter(msg := {}) -> void:
 		owner.velocity.y = -owner.JUMP_VELOCITY
 	else: 
 		owner.animation.play("Air")
-	owner.double_jump = 0
+	owner.animationk.play("empty")  
 
 
 func physics_update(delta: float) -> void:
@@ -50,8 +50,8 @@ func physics_update(delta: float) -> void:
 		$Timer.start()
 		$walljump.start(0.4)
 	
+		
 	owner.velocity.y += owner.gravity * delta
-	owner.move_and_slide()
 	
 	# Landing.
 	if owner.is_on_floor():
@@ -76,12 +76,10 @@ func physics_update(delta: float) -> void:
 
 
 func _on_timer_timeout():
-		$Timer.stop()
-		owner.cantm = false
+	$Timer.stop()
+	owner.cantm = false
 
 
 func _on_walljump_timeout():
 	$walljump.stop()
 	owner.walljump = false
-
-

@@ -1,12 +1,14 @@
 extends State
 
 func enter(_msg := {}) -> void:
-	owner.cantm = true
+	owner.cantm = false
 	owner.gravity = 1500
+	owner.double_jump = 0
 	owner.cancely = 0
 	owner.walljump = false
 	owner.can_dash = true
 	owner.animation.play("Run")
+	owner.animationk.play("empty")  
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
@@ -24,13 +26,12 @@ func physics_update(delta: float) -> void:
 		owner.sprite.scale.x = -3
 	if direction == 1:
 		owner.sprite.scale.x = 3
-	if direction and owner.cantm == true:
+	if direction and owner.cantm == false:
 		owner.velocity.x = direction * owner.SPEED
 	else:
 		owner.velocity.x = move_toward(owner.velocity.x, 0, owner.SPEED)
 		
 	owner.velocity.y += owner.gravity * delta
-	owner.move_and_slide()
 
 	if Input.is_action_just_pressed("jump"):
 		owner.animation.play("Jump")

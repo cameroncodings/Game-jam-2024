@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cu6hx6lsbb0tm"]
+[gd_scene load_steps=27 format=3 uid="uid://cu6hx6lsbb0tm"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_8r85i"]
 [ext_resource type="Texture2D" uid="uid://cpm28gi1tsfq3" path="res://Assets/mainchar.png" id="2_qtcc5"]
@@ -61,7 +61,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_yih1t"]
 resource_name = "Ground_pound"
-length = 0.25
+length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -73,7 +73,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [40, 41]
+"values": [41, 42]
 }
 
 [sub_resource type="Animation" id="Animation_0dp0b"]
@@ -120,10 +120,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.025, 0.125, 0.2, 0.275, 0.35),
+"times": PackedFloat32Array(0, 0.05, 0.125, 0.225, 0.3, 0.375),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [42, 43, 44, 45, 46, 47]
+"values": [43, 44, 45, 46, 47, 48]
 }
 
 [sub_resource type="Animation" id="Animation_ne458"]
@@ -143,6 +143,21 @@ tracks/0/keys = {
 "values": [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 }
 
+[sub_resource type="Animation" id="Animation_rfp8q"]
+resource_name = "knockback"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [55]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b0tgv"]
 _data = {
 "Air": SubResource("Animation_fo2wt"),
@@ -152,31 +167,15 @@ _data = {
 "Idle": SubResource("Animation_0dp0b"),
 "Jump": SubResource("Animation_sntpp"),
 "Knife": SubResource("Animation_2w401"),
-"Run": SubResource("Animation_ne458")
+"Run": SubResource("Animation_ne458"),
+"knockback": SubResource("Animation_rfp8q")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gpywl"]
-size = Vector2(40, 63.3334)
+size = Vector2(40, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd7r"]
-size = Vector2(143, 20)
-
-[sub_resource type="Animation" id="Animation_c23th"]
-resource_name = "slasj"
-length = 0.15
-step = 0.005
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Slash:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06, 0.11, 0.14),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 8]
-}
+size = Vector2(192.5, 33)
 
 [sub_resource type="Animation" id="Animation_juyax"]
 resource_name = "empty"
@@ -192,6 +191,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_c23th"]
+resource_name = "slasj"
+length = 0.15
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.11, 0.14),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 8]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ogjp7"]
@@ -218,10 +234,10 @@ scale = Vector2(3, 3.07813)
 texture = ExtResource("2_qtcc5")
 hframes = 7
 vframes = 8
-frame = 5
+frame = 43
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6.99998)
+position = Vector2(0, 18)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_gpywl")
 
@@ -271,7 +287,7 @@ target_position = Vector2(-67, 0)
 [node name="knife" type="Area2D" parent="."]
 
 [node name="knifebox" type="CollisionShape2D" parent="knife"]
-position = Vector2(121, 1)
+position = Vector2(145.75, 2.5)
 shape = SubResource("RectangleShape2D_jjd7r")
 disabled = true
 
@@ -280,11 +296,12 @@ wait_time = 0.4
 
 [node name="Slash" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(123, 3)
+position = Vector2(152, 3)
 scale = Vector2(3, 1)
 texture = ExtResource("10_qunum")
 hframes = 3
 vframes = 3
+frame = 4
 
 [node name="AnimationPlayerk" type="AnimationPlayer" parent="."]
 libraries = {

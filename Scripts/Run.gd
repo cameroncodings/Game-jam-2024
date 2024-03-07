@@ -1,6 +1,7 @@
 extends State
 
 func enter(_msg := {}) -> void:
+	owner.cantcantm = false
 	owner.cantm = false
 	owner.gravity = 1500
 	owner.double_jump = 0

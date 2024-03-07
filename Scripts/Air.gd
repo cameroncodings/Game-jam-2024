@@ -2,12 +2,14 @@ extends State
 var time = 0
 
 func enter(msg := {}) -> void:
-	owner.cantm = false
+	if owner.cantcantm == false:
+		owner.cantm = false
 	owner.gravity = 1500
 	if msg.has("do_jump"):
 		owner.velocity.y = -owner.JUMP_VELOCITY
-	else: 
-		owner.animation.play("Air")
+	else:
+		if owner.cantcantm == false:
+			owner.animation.play("Air") 
 	owner.animationk.play("empty")  
 
 
@@ -19,7 +21,7 @@ func physics_update(delta: float) -> void:
 		owner.sprite.scale.x = 3
 	if direction and owner.cantm == false and owner.walljump == false:
 		owner.velocity.x = direction * owner.SPEED
-	elif owner.walljump == true:
+	elif owner.walljump == true or owner.cantcantm == true:
 		owner.velocity.x -= move_toward(owner.velocity.x, 0, owner.SPEED)
 	else:
 		owner.velocity.x = move_toward(owner.velocity.x, 0, owner.SPEED)

@@ -64,5 +64,5 @@ texture_normal = ExtResource("8_bof26")
 texture_pressed = ExtResource("9_iws1i")
 texture_hover = ExtResource("10_wv6fm")
 
-[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]

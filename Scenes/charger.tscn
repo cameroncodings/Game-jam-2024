@@ -48,5 +48,11 @@ target_position = Vector2(42.6667, 0)
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_0ejq4")
 
+[node name="SeeplayerL" type="RayCast2D" parent="."]
+target_position = Vector2(-1500, 0)
+
+[node name="SeeplayerR" type="RayCast2D" parent="."]
+target_position = Vector2(1500, 0)
+
 [connection signal="area_entered" from="hitox" to="." method="_on_hitox_area_entered"]
 [connection signal="body_entered" from="hitox" to="." method="_on_hitox_body_entered"]

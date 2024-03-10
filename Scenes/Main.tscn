@@ -198,7 +198,7 @@ size = Vector2(216, 160)
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ybb1t")]
-position = Vector2(-520, -48)
+position = Vector2(-552, -56)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_jq1gc")

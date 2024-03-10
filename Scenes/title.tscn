@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4j3l2ye0awtf"]
+[gd_scene load_steps=12 format=3 uid="uid://b4j3l2ye0awtf"]
 
 [ext_resource type="Script" path="res://Scripts/title.gd" id="1_80652"]
 [ext_resource type="Texture2D" uid="uid://bxmmiptml1hc" path="res://Assets/istart.png" id="2_r117p"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bpavqvo0qybkw" path="res://Assets/iquit.png" id="8_bof26"]
 [ext_resource type="Texture2D" uid="uid://djaq28jdik80f" path="res://Assets/pquit.png" id="9_iws1i"]
 [ext_resource type="Texture2D" uid="uid://dd8mddlyl71cx" path="res://Assets/hquit.png" id="10_wv6fm"]
+[ext_resource type="Texture2D" uid="uid://cctxlnq50xnvs" path="res://Assets/TitleScreen.png" id="11_ibjtl"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_80652")
@@ -19,14 +20,14 @@ script = ExtResource("1_80652")
 [node name="start" type="TextureButton" parent="CanvasLayer"]
 texture_filter = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.341
-anchor_right = 0.5
-anchor_bottom = 0.341
-offset_left = -152.0
-offset_top = -95.968
-offset_right = -56.0
-offset_bottom = -31.968
+anchor_left = 0.174
+anchor_top = 0.843
+anchor_right = 0.174
+anchor_bottom = 0.843
+offset_left = -140.448
+offset_top = -96.264
+offset_right = -44.448
+offset_bottom = -32.264
 scale = Vector2(3, 3)
 texture_normal = ExtResource("2_r117p")
 texture_pressed = ExtResource("3_8xm0m")
@@ -35,14 +36,14 @@ texture_hover = ExtResource("4_ok4g7")
 [node name="options" type="TextureButton" parent="CanvasLayer"]
 texture_filter = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.58
-anchor_right = 0.5
-anchor_bottom = 0.58
-offset_left = -152.0
-offset_top = -100.84
-offset_right = -56.0
-offset_bottom = -36.84
+anchor_left = 0.177
+anchor_top = 1.148
+anchor_right = 0.177
+anchor_bottom = 1.148
+offset_left = -143.904
+offset_top = -93.904
+offset_right = -47.904
+offset_bottom = -29.904
 scale = Vector2(3, 3)
 texture_normal = ExtResource("5_2jkf5")
 texture_pressed = ExtResource("6_rvqqs")
@@ -51,18 +52,24 @@ texture_hover = ExtResource("7_l24sj")
 [node name="quit" type="TextureButton" parent="CanvasLayer"]
 texture_filter = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.804
-anchor_right = 0.5
-anchor_bottom = 0.804
-offset_left = -152.0
-offset_top = -95.992
-offset_right = -56.0
-offset_bottom = -31.992
+anchor_left = 0.177
+anchor_top = 1.457
+anchor_right = 0.177
+anchor_bottom = 1.457
+offset_left = -143.904
+offset_top = -94.136
+offset_right = -47.904
+offset_bottom = -30.136
 scale = Vector2(3, 3)
 texture_normal = ExtResource("8_bof26")
 texture_pressed = ExtResource("9_iws1i")
 texture_hover = ExtResource("10_wv6fm")
 
-[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(960, 540)
+scale = Vector2(12, 12)
+texture = ExtResource("11_ibjtl")
+
 [connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]

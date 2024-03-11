@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 200
 var direction = Vector2.LEFT
 
+
 @onready var sprite = $Sprite2D
 @onready var seeL := $SeeplayerL
 @onready var seeR := $SeeplayerR
@@ -12,7 +13,8 @@ var direction = Vector2.LEFT
 @onready var wallR := $wallR
 
 var hp = 2
-var chase = false
+var chaseL = false
+var chaseR = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#$AnimationPlayer.play('run')
@@ -21,7 +23,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	print(sprite.scale.x)
 	var wall = wallR.is_colliding() or wallL.is_colliding() 
 	var L = not left.is_colliding() 
 	var R = not right.is_colliding()
@@ -32,21 +33,45 @@ func _physics_process(_delta):
 		direction *= -1
 		sprite.scale.x *= -1
 	
-	if chase == false or L or R or wall:
+	if chaseL == false or chaseR == false or L or R or wall:
 		velocity = direction * SPEED
-	if seenplayerL == true and sprite.scale.x == 2.5 and L == false or R == false or wall == false:
-		chase = true
-		velocity = direction * SPEED * 10
-	elif seenplayerR == true and sprite.scale.x == -2.5 and L == false or R == false or wall == false:
-		chase = true
-		velocity = -direction * SPEED * 10
+	if seenplayerL == true and sprite.scale.x == 2.5 and chaseL == true and L == false and R == false and wall == false:
+		velocity = sprite.scale.x/2.5 * SPEED * 5 * direction
+	elif seenplayerR == true and sprite.scale.x == -2.5 and chaseR == true and L == false and R == false and wall == false:
+		velocity = sprite.scale.x/2.5 * SPEED * 5 * -direction
 	move_and_slide()
 	
 func _on_hitox_body_entered(body):
 	if body.name == "Player":
+		chaseR = false
+		chaseL = false
 		body.hurt()
 
 
 func _on_hitox_area_entered(area):
 	if area.name == "knife" or area.name == "groundpound":
 		queue_free()
+
+
+
+func _on_area_2dl_body_entered(body):
+	if body.name == "Player":
+		chaseL = true
+
+
+func _on_area_2dl_body_exited(body):
+	if body.name == "Player":
+		chaseL = false
+
+
+
+func _on_area_2dr_body_entered(body):
+	if body.name == "Player":
+		chaseR = true
+
+
+func _on_area_2dr_body_exited(body):
+	if body.name == "Player":
+		chaseR = false
+
+

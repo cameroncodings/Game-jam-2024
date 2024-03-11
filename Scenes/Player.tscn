@@ -222,12 +222,12 @@ size = Vector2(122, 37)
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_8r85i")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Player"]]
 libraries = {
 "": SubResource("AnimationLibrary_b0tgv")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Player"]]
 texture_filter = 1
 position = Vector2(0, 2.49988)
 scale = Vector2(3, 3.07813)
@@ -236,65 +236,65 @@ hframes = 7
 vframes = 8
 frame = 43
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0, 18)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_gpywl")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["Player"]]
 offset = Vector2(0, -300)
 zoom = Vector2(0.5, 0.5)
 
-[node name="state_machine" type="Node" parent="."]
+[node name="state_machine" type="Node" parent="." groups=["Player"]]
 unique_name_in_owner = true
 script = ExtResource("3_u13ix")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="state_machine"]
+[node name="Idle" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("3_cnb0j")
 
-[node name="Air" type="Node" parent="state_machine"]
+[node name="Air" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("4_kettg")
 
-[node name="Timer" type="Timer" parent="state_machine/Air"]
+[node name="Timer" type="Timer" parent="state_machine/Air" groups=["Player"]]
 wait_time = 0.1
 
-[node name="walljump" type="Timer" parent="state_machine/Air"]
+[node name="walljump" type="Timer" parent="state_machine/Air" groups=["Player"]]
 wait_time = 0.2
 
-[node name="Run" type="Node" parent="state_machine"]
+[node name="Run" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("5_fi2ly")
 
-[node name="Ground_pound" type="Node" parent="state_machine"]
+[node name="Ground_pound" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("7_5mcih")
 
-[node name="Dash" type="Node" parent="state_machine"]
+[node name="Dash" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("8_3jj72")
 
-[node name="dashtime" type="Timer" parent="state_machine/Dash"]
+[node name="dashtime" type="Timer" parent="state_machine/Dash" groups=["Player"]]
 
-[node name="attack" type="Node" parent="state_machine"]
+[node name="attack" type="Node" parent="state_machine" groups=["Player"]]
 script = ExtResource("9_tt8xo")
 
-[node name="attacktime" type="Timer" parent="state_machine/attack"]
+[node name="attacktime" type="Timer" parent="state_machine/attack" groups=["Player"]]
 
-[node name="right" type="RayCast2D" parent="."]
+[node name="right" type="RayCast2D" parent="." groups=["Player"]]
 target_position = Vector2(67, 0)
 
-[node name="left" type="RayCast2D" parent="."]
+[node name="left" type="RayCast2D" parent="." groups=["Player"]]
 target_position = Vector2(-67, 0)
 
-[node name="knife" type="Area2D" parent="."]
+[node name="knife" type="Area2D" parent="." groups=["Player"]]
 
-[node name="knifebox" type="CollisionShape2D" parent="knife"]
+[node name="knifebox" type="CollisionShape2D" parent="knife" groups=["Player"]]
 position = Vector2(145.75, 2.5)
 shape = SubResource("RectangleShape2D_jjd7r")
 disabled = true
 
-[node name="knockback" type="Timer" parent="."]
+[node name="knockback" type="Timer" parent="." groups=["Player"]]
 wait_time = 0.4
 
-[node name="Slash" type="Sprite2D" parent="."]
+[node name="Slash" type="Sprite2D" parent="." groups=["Player"]]
 texture_filter = 1
 position = Vector2(152, 3)
 scale = Vector2(3, 1)
@@ -303,14 +303,14 @@ hframes = 3
 vframes = 3
 frame = 4
 
-[node name="AnimationPlayerk" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayerk" type="AnimationPlayer" parent="." groups=["Player"]]
 libraries = {
 "": SubResource("AnimationLibrary_ogjp7")
 }
 
-[node name="groundpound" type="Area2D" parent="."]
+[node name="groundpound" type="Area2D" parent="." groups=["Player"]]
 
-[node name="poundbox" type="CollisionShape2D" parent="groundpound"]
+[node name="poundbox" type="CollisionShape2D" parent="groundpound" groups=["Player"]]
 position = Vector2(-2, 113.5)
 shape = SubResource("RectangleShape2D_0f5yb")
 disabled = true

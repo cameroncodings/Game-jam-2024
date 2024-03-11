@@ -71,5 +71,5 @@ position = Vector2(960, 540)
 scale = Vector2(12, 12)
 texture = ExtResource("11_ibjtl")
 
-[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/start" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/start" to="." method="_on_start_pressed"]

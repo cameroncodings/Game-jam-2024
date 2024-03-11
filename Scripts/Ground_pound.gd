@@ -36,7 +36,10 @@ func physics_update(_delta: float) -> void:
 		
 
 
-func _on_groundpound_area_entered(_area):
+func _on_groundpound_area_entered(area):
+	if area.name == "Death" or area.name == "Win":
+		pass
+	else:
 		owner.velocity.y = owner.DOUBLE_JUMP
 		owner.cancely = 1
 		%state_machine.transition_to("Air")

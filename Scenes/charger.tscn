@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://wh8ns02w61u"]
+[gd_scene load_steps=6 format=3 uid="uid://wh8ns02w61u"]
 
 [ext_resource type="Script" path="res://Scripts/charger.gd" id="1_jcy44"]
 [ext_resource type="Texture2D" uid="uid://cejpdt8umiqm0" path="res://Assets/sentry.png" id="1_obv7q"]
@@ -8,6 +8,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ejq4"]
 radius = 68.0
 height = 152.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acxgc"]
+size = Vector2(1551, 19)
 
 [node name="Charger" type="CharacterBody2D"]
 script = ExtResource("1_jcy44")
@@ -54,5 +57,21 @@ target_position = Vector2(-1500, 0)
 [node name="SeeplayerR" type="RayCast2D" parent="."]
 target_position = Vector2(1500, 0)
 
+[node name="Area2DL" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DL"]
+position = Vector2(-774.5, -0.5)
+shape = SubResource("RectangleShape2D_acxgc")
+
+[node name="Area2DR" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DR"]
+position = Vector2(766, 0)
+shape = SubResource("RectangleShape2D_acxgc")
+
 [connection signal="area_entered" from="hitox" to="." method="_on_hitox_area_entered"]
 [connection signal="body_entered" from="hitox" to="." method="_on_hitox_body_entered"]
+[connection signal="body_entered" from="Area2DL" to="." method="_on_area_2dl_body_entered"]
+[connection signal="body_exited" from="Area2DL" to="." method="_on_area_2dl_body_exited"]
+[connection signal="body_entered" from="Area2DR" to="." method="_on_area_2dr_body_entered"]
+[connection signal="body_exited" from="Area2DR" to="." method="_on_area_2dr_body_exited"]

@@ -234,7 +234,7 @@ scale = Vector2(3, 3.07813)
 texture = ExtResource("2_qtcc5")
 hframes = 7
 vframes = 8
-frame = 43
+frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(0, 18)
@@ -315,9 +315,12 @@ position = Vector2(-2, 113.5)
 shape = SubResource("RectangleShape2D_0f5yb")
 disabled = true
 
+[node name="iframetime" type="Timer" parent="."]
+
 [connection signal="timeout" from="state_machine/Air/Timer" to="state_machine/Air" method="_on_timer_timeout"]
 [connection signal="timeout" from="state_machine/Air/walljump" to="state_machine/Air" method="_on_walljump_timeout"]
 [connection signal="timeout" from="state_machine/Dash/dashtime" to="state_machine/Dash" method="_on_dashtime_timeout"]
 [connection signal="timeout" from="state_machine/attack/attacktime" to="state_machine/attack" method="_on_attacktime_timeout"]
 [connection signal="timeout" from="knockback" to="." method="_on_knockback_timeout"]
 [connection signal="area_entered" from="groundpound" to="state_machine/Ground_pound" method="_on_groundpound_area_entered"]
+[connection signal="timeout" from="iframetime" to="." method="_on_iframetime_timeout"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxvvh373br4v"]
+
+[ext_resource type="Texture2D" uid="uid://cdufcskxyri07" path="res://Assets/Deathscene.png" id="1_0qo7u"]
+[ext_resource type="Texture2D" uid="uid://62r2vodp034d" path="res://Assets/iretry.png" id="1_awi88"]
+[ext_resource type="Script" path="res://Scenes/death.gd" id="1_orl1s"]
+[ext_resource type="Texture2D" uid="uid://ceabi6jdj8qx3" path="res://Assets/pretry.png" id="2_n6chb"]
+[ext_resource type="Texture2D" uid="uid://bhojm8qvbgl4q" path="res://Assets/hretry.png" id="3_iwu8a"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_orl1s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Retry" type="TextureButton" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 1.039
+anchor_top = 1.0
+anchor_right = 1.039
+anchor_bottom = 1.0
+offset_left = -1196.93
+offset_top = -648.0
+offset_right = -1100.93
+offset_bottom = -584.0
+scale = Vector2(3, 3)
+texture_normal = ExtResource("1_awi88")
+texture_pressed = ExtResource("2_n6chb")
+texture_hover = ExtResource("3_iwu8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(960, 540)
+scale = Vector2(12, 12)
+texture = ExtResource("1_0qo7u")
+
+[connection signal="pressed" from="CanvasLayer/Retry" to="." method="_on_retry_pressed"]

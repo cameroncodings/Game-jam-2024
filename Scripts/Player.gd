@@ -21,6 +21,7 @@ var cancely = 0
 var hp = 3
 var knockbackdir = 0
 
+var iframe = false
 var cantcantm = false
 var cantm = false
 var walljump = false
@@ -29,26 +30,38 @@ var can_dash = true
 
 func _physics_process(_delta):
 	move_and_slide()
+	
+	if iframe == false:
+		$Sprite2D.modulate = Color(1, 1, 1)
+	elif iframe == true:
+		$Sprite2D.modulate = Color(0, 0, 0)
 
 func hurt():
-	cantcantm = true
-	cantm = true
-	velocity.y = PUSH_UP
-	if sprite.scale.x == 3:
-		velocity.x = -PUSH_BACK
-		sprite.scale.x = 3
-		
-	if sprite.scale.x == -3:
-		velocity.x = PUSH_BACK
-		sprite.scale.x = -3
-	$knockback.start(1)
-	animation.play("knockback")
-	hp -= 1
-	if hp <= 0:
-		get_tree().reload_current_scene()
-	%state_machine.transition_to("Air")
+	if iframe == false:
+		cantcantm = true
+		cantm = true
+		velocity.y = PUSH_UP
+		if sprite.scale.x == 3:
+			velocity.x = -PUSH_BACK
+			sprite.scale.x = 3
+			
+		if sprite.scale.x == -3:
+			velocity.x = PUSH_BACK
+			sprite.scale.x = -3
+		$knockback.start(1)
+		animation.play("knockback")
+		hp -= 1
+		if hp <= 0:
+			get_tree().change_scene_to_file("res://Scenes/death.tscn")
+		%state_machine.transition_to("Air")
+		iframe = true
+		$iframetime.start(1)
 
 
 func _on_knockback_timeout():
 	cantcantm = false
 	cantm = false
+
+
+func _on_iframetime_timeout():
+	iframe = false

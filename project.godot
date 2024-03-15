@@ -65,4 +65,4 @@ attack={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.141176, 0.533333, 0.690196, 1)
+environment/defaults/default_clear_color=Color(0.329412, 0.207843, 0.517647, 1)

@@ -1,14 +1,11 @@
 extends CharacterBody2D
 
-const SPEED = 200
+const SPEED = 500
 var direction = Vector2.LEFT
-
+const RUN = 1000
 
 @onready var sprite = $Sprite2D
-@onready var seeL := $SeeplayerL
-@onready var seeR := $SeeplayerR
-@onready var left := $left
-@onready var right := $right
+@onready var floor := $floor
 @onready var wallL := $wallL
 @onready var wallR := $wallR
 
@@ -17,34 +14,33 @@ var chaseL = false
 var chaseR = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#$AnimationPlayer.play('run')
-	pass
+	$AnimationPlayer.play('run')
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	var wall = wallR.is_colliding() or wallL.is_colliding() 
-	var L = not left.is_colliding() 
-	var R = not right.is_colliding()
-	var seenplayerL = seeL.is_colliding()
-	var seenplayerR = seeR.is_colliding()
+	if $SeeplayerL.is_colliding():
+		if $SeeplayerL.get_collider().name == "Player" and sprite.scale.x == 2.5:
+			chaseL = true
 	
-	if L or R or wall:
+	if $SeeplayerR.is_colliding():
+		if $SeeplayerR.get_collider().name == "Player" and sprite.scale.x == -2.5:
+			chaseR = true
+	var wall = wallR.is_colliding() or wallL.is_colliding() 
+	var florr = not floor.is_colliding() 
+	if florr == true or wall == true:
 		direction *= -1
 		sprite.scale.x *= -1
-	
-	if chaseL == false or chaseR == false or L or R or wall:
+		$stop.start(0.1)
+
+	if chaseL == false or chaseR == false:
 		velocity = direction * SPEED
-	if seenplayerL == true and sprite.scale.x == 2.5 and chaseL == true and L == false and R == false and wall == false:
-		velocity = sprite.scale.x/2.5 * SPEED * 5 * direction
-	elif seenplayerR == true and sprite.scale.x == -2.5 and chaseR == true and L == false and R == false and wall == false:
-		velocity = sprite.scale.x/2.5 * SPEED * 5 * -direction
+	if chaseL == true:
+		velocity = RUN * direction
+	elif chaseR == true:
+		velocity = RUN * direction
 	move_and_slide()
-	
+
 func _on_hitox_body_entered(body):
 	if body.name == "Player":
-		chaseR = false
-		chaseL = false
 		body.hurt()
 
 
@@ -53,25 +49,6 @@ func _on_hitox_area_entered(area):
 		queue_free()
 
 
-
-func _on_area_2dl_body_entered(body):
-	if body.name == "Player":
-		chaseL = true
-
-
-func _on_area_2dl_body_exited(body):
-	if body.name == "Player":
-		chaseL = false
-
-
-
-func _on_area_2dr_body_entered(body):
-	if body.name == "Player":
-		chaseR = true
-
-
-func _on_area_2dr_body_exited(body):
-	if body.name == "Player":
-		chaseR = false
-
-
+func _on_stop_timeout():
+	chaseL = false
+	chaseR = false

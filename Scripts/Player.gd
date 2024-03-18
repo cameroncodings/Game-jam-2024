@@ -8,6 +8,7 @@ extends CharacterBody2D
 const SPEED = 800.0
 const JUMP_VELOCITY = -800.0
 const DOUBLE_JUMP = -750.0
+const WALL_JUMP = -600
 const wall_jump_pushback = 2000
 const DASH_SPEEDy = 1000
 const DASH_SPEEDx = 3000

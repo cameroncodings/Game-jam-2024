@@ -32,7 +32,7 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and on_wall_L:
 		owner.walljump = true
 		owner.cantm = true
-		owner.velocity.y = owner.JUMP_VELOCITY
+		owner.velocity.y = owner.WALL_JUMP
 		owner.velocity.x = owner.wall_jump_pushback
 		direction = 1
 		owner.sprite.scale.x = 3
@@ -44,7 +44,7 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and on_wall_R:
 		owner.walljump = true
 		owner.cantm = true
-		owner.velocity.y = owner.JUMP_VELOCITY 
+		owner.velocity.y = owner.WALL_JUMP
 		owner.velocity.x = -owner.wall_jump_pushback
 		direction = -1
 		owner.sprite.scale.x = -3

@@ -5,4 +5,4 @@ extends Area2D
 
 func _on_body_entered(body):
 	if body.name == "Player":
-		get_tree().change_scene_to_file("res://Scenes/title.tscn")
+		get_tree().change_scene_to_file("res://Scenes/level1.tscn")

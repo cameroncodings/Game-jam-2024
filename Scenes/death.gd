@@ -12,4 +12,4 @@ func _process(delta):
 
 
 func _on_retry_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Main.tscn")
+	get_tree().change_scene_to_file("res://Scenes/level1.tscn")
